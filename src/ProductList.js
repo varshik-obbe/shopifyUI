@@ -21,6 +21,7 @@ import { SearchMajor } from '@shopify/polaris-icons';
 import config from './config.json';
 
 function ProductList() {
+  let { customerID } = useParams();
   const [arr, setArr] = useState([]);
   const [arrForSearch, setArrForSearch] = useState([]);
   const [btnLoader, setBtnLoader] = useState({});
@@ -37,7 +38,6 @@ function ProductList() {
 
   const getData = useCallback(async () => {
     try {
-      let { customerID } = useParams();
       const response = await fetch(`${config.APIURL}/customerInventory/getProducts/`+customerID);
       const data = await response.json();
       setArr(data.products);
@@ -59,7 +59,6 @@ function ProductList() {
   };
 
   const handleButtonAction = async (item, actionType) => {
-    let { customerID } = useParams();
     let productData = {
       id: item.product_id,
       customer_id: customerID,
