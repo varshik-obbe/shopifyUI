@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import React from 'react'
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 const Home = () => {
 
   const navigate = useNavigate();
-  var myId = '61e7a8af6b91a9d48b531e9c';
+  let { id } = useParams();
+  var myId = id;
 
   useEffect(()=>{
     navigate(`/${myId}`);

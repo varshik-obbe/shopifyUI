@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 import {
   BlockStack,
   ResourceList,
@@ -36,7 +37,8 @@ function ProductList() {
 
   const getData = useCallback(async () => {
     try {
-      const response = await fetch(`${config.APIURL}/customerInventory/getProducts/61e7a8af6b91a9d48b531e9c`);
+      let { customerID } = useParams();
+      const response = await fetch(`${config.APIURL}/customerInventory/getProducts/`+customerID);
       const data = await response.json();
       setArr(data.products);
       setArrForSearch(data.products);
@@ -57,8 +59,10 @@ function ProductList() {
   };
 
   const handleButtonAction = async (item, actionType) => {
+    let { customerID } = useParams();
     let productData = {
       id: item.product_id,
+      customer_id: customerID,
       shopify_product_id: item.shopify_prod_id,
       shopify_inventory_id: item.shopify_inventory_id,
     };
